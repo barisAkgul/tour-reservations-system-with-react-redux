@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import backgroundImage from "@assets/images/hero.jpg";
+import { FilterContainer } from "@components/common/filter-section/FilterSection.styled";
 
 export const fadeIn = keyframes`
   0% {
@@ -66,5 +67,10 @@ export const Content = styled.div`
     margin-bottom: 1.5rem;
     opacity: 0;
     animation: ${fadeIn} 0.5s ease 0.5s 1 normal forwards;
+  }
+
+  ${FilterContainer} {
+    opacity: 0;
+    animation: ${fadeIn} 0.5s ease 1.5s 1 normal forwards;
   }
 `;
