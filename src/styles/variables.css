@@ -1,0 +1,55 @@
+:root {
+  --white: #ffffff;
+  --gray: #7c859e;
+  --light-gray: #dee0ea;
+  --dark-blue: #182b42;
+  --very-dark-blue: #111526;
+  --main-blue: #1367ef;
+  --secondary-blue: #2879fe;
+  --ghost-blue: #4f5b87;
+  --light-blue: #f1faff;
+  --green: #56b890;
+  --red: #f25f5c;
+  --main-purple: #e71c61;
+  --light-purple: #ec5084;
+  --very-light-purple: #fde8ef;
+  --green-light: #a8dadc50;
+  --red-light: #ffb4b250;
+  --ghost-white: #fefefd;
+
+  --text-light: #6b7280;
+  --text-dark: #030712;
+  --extra-light: #fbfbfb;
+
+  --soft-gray: #bebdbb;
+
+  --alabaster: #f3f2ee;
+
+  --gray-opaque: #7c859e20;
+  --dark-blue-opaque: #182b4220;
+  --very-dark-blue-opaque: #11152620;
+  --green-opaque: #56b89020;
+
+  --border-color: #1d2e3f;
+
+  --border-radius-s: 4px;
+  --border-radius-m: 8px;
+
+  --space-s: 4px;
+  --space-m: 8px;
+  --space-l: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+
+  --font-xs: 12px;
+  --font-s: 14px;
+  --font-m: 16px;
+  --font-l: 18px;
+  --font-xl: 24px;
+  --font-xxl: 32px;
+  --font-xxxl: 48px;
+
+  --screen-sm: 568px;
+  --screen-md: 768px;
+  --screen-lg: 992px;
+}
