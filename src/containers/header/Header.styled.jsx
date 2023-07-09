@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   grid-area: header;
-  background-color: #f2f2f2;
 
   position: fixed;
   z-index: 999;

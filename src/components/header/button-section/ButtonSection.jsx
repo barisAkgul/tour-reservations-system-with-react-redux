@@ -26,7 +26,7 @@ const SignUpButton = styled.button`
 const LoginButton = styled.button`
   font-size: 16px;
   font-weight: 600;
-  background-color: var(--extra-light);
+  //background-color: var(--extra-light);
   border-radius: 5px 5px 5px 5px;
   padding: 8px 24px;
   color: ${({ active }) => (active ? "var(--text-dark)" : "var(--white)")};
