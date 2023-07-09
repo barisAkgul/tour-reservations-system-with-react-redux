@@ -1,7 +1,9 @@
 import React from "react";
 
+import * as S from "./index.styled";
+
 const Main = () => {
-  return <div>Main</div>;
+  return <S.Main>Main</S.Main>;
 };
 
 export { Main };
