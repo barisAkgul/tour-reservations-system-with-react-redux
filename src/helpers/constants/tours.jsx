@@ -1,10 +1,10 @@
-import tourImg01 from "@/assets/images/tour-img01.jpg";
-import tourImg02 from "@/assets/images/tour-img02.jpg";
-import tourImg03 from "@/assets/images/tour-img03.jpg";
-import tourImg04 from "@/assets/images/tour-img04.jpg";
-import tourImg05 from "@/assets/images/tour-img05.jpg";
-import tourImg06 from "@/assets/images/tour-img06.jpg";
-import tourImg07 from "@/assets/images/tour-img07.jpg";
+import tourImg01 from "@assets/images/tour-img01.jpg";
+import tourImg02 from "@assets/images/tour-img02.jpg";
+import tourImg03 from "@assets/images/tour-img03.jpg";
+import tourImg04 from "@assets/images/tour-img04.jpg";
+import tourImg05 from "@assets/images/tour-img05.jpg";
+import tourImg06 from "@assets/images/tour-img06.jpg";
+import tourImg07 from "@assets/images/tour-img07.jpg";
 
 export const tours = [
   {

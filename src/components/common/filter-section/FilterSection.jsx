@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GoLocation } from "react-icons/go";
 import { BsCalendar2Date, BsPerson } from "react-icons/bs";
 import Select from "react-select";
 
@@ -8,20 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 import { setFieldValue } from "@stores/filterSlice.jsx";
 
+import tours from "@helpers/constants/tours.jsx";
+import { parseCities } from "@helpers/utils/index.js";
+
 import * as S from "./FilterSection.styled.jsx";
 
-const countryOptions = [
-  { value: "turkey", label: "Turkey" },
-  { value: "usa", label: "USA" },
-  { value: "germany", label: "Germany" },
-  { value: "france", label: "France" },
-  { value: "italy", label: "Italy" },
-  { value: "spain", label: "Spain" },
-  { value: "uk", label: "UK" },
-  { value: "japan", label: "Japan" },
-  { value: "canada", label: "Canada" },
-  { value: "australia", label: "Australia" },
-];
+const cities = parseCities(tours);
 
 const customStyles = {
   container: (provided) => ({
@@ -66,7 +57,7 @@ const FilterSection = ({ buttonText, redirectUrl }) => {
   useEffect(() => {
     if (filter.hotelId) {
       setSelectedOption(
-        countryOptions.find((option) => option.value === filter.hotelId)
+        cities.find((option) => option.value === filter.hotelId)
       );
     }
   }, [filter.hotelId]);
@@ -146,7 +137,7 @@ const FilterSection = ({ buttonText, redirectUrl }) => {
           placeholder="Where are you going?"
           value={selectedOption}
           onChange={handleSelected}
-          options={countryOptions}
+          options={cities}
           styles={customStyles}
         />
       </S.InputContainer>
