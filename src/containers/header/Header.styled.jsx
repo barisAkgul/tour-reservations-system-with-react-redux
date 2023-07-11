@@ -1,3 +1,4 @@
+import { Breakpoints } from "@helpers/constants/general";
 import styled from "styled-components";
 
 export const Header = styled.header`
@@ -24,4 +25,8 @@ export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: ${Breakpoints.TABLET}px) {
+    padding: 20px 20px;
+  }
 `;

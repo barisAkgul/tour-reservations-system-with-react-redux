@@ -9,5 +9,5 @@ export const MainLayout = styled.div`
     "main"
     "footer";
   grid-template-columns: 1fr;
-  grid-template-rows: 85px 100vh auto;
+  grid-template-rows: 85px 1fr auto;
 `;
