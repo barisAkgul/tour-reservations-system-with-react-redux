@@ -1,7 +1,7 @@
 import React from "react";
 
 import * as S from "./HomeHeroSection.styled";
-import FilterSection from "@components/common/filter-section/FilterSection";
+import { FilterSection } from "@components/common/filter-section/FilterSection";
 
 const HomeHeroSection = () => {
   return (

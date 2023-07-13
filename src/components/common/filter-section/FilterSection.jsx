@@ -163,4 +163,4 @@ const FilterSection = ({ buttonText, redirectUrl }) => {
   );
 };
 
-export default FilterSection;
+export { FilterSection };
