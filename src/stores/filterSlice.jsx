@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  hotelId: "",
+  tourId: "",
   checkin: "",
   checkout: "",
   days: 0,

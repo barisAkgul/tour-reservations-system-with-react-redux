@@ -48,24 +48,33 @@ const customStyles = {
   }),
 };
 
-const FilterSection = ({ buttonText, redirectUrl }) => {
+const FilterSection = ({ buttonText, redirectUrl, location }) => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
   const navigate = useNavigate();
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(
+    location ? cities.find((option) => option.label == location) : null
+  );
+
+  console.log(location, selectedOption, cities);
 
   useEffect(() => {
-    if (filter.hotelId) {
+    //Reload the deleted selected option object when the page is refreshed.
+    if (filter.tourId) {
       setSelectedOption(
-        cities.find((option) => option.value === filter.hotelId)
+        cities.find((option) => option.value === filter.tourId)
       );
     }
-  }, [filter.hotelId]);
+
+    if (location) {
+      dispatch(setFieldValue({ field: "tourId", value: selectedOption.value }));
+    }
+  }, []);
 
   const handleSelected = (selectedOption) => {
     setSelectedOption(selectedOption);
-    dispatch(setFieldValue({ field: "hotelId", value: selectedOption.value }));
+    dispatch(setFieldValue({ field: "tourId", value: selectedOption.value }));
   };
 
   const handleSearch = () => {
@@ -74,7 +83,7 @@ const FilterSection = ({ buttonText, redirectUrl }) => {
     }
 
     console.log(
-      filter.hotelId,
+      filter.tourId,
       filter.checkin,
       filter.checkout,
       filter.adults,
@@ -123,7 +132,7 @@ const FilterSection = ({ buttonText, redirectUrl }) => {
   ];
 
   const isButtonDisabled =
-    !filter.hotelId || !filter.checkin || !filter.checkout || !filter.adults;
+    !filter.tourId || !filter.checkin || !filter.checkout || !filter.adults;
 
   return (
     <S.FilterContainer>
@@ -140,6 +149,7 @@ const FilterSection = ({ buttonText, redirectUrl }) => {
           onChange={handleSelected}
           options={cities}
           styles={customStyles}
+          isDisabled={location ? true : false}
         />
       </S.InputContainer>
       {inputs.map((input) => (

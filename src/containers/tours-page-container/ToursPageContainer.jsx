@@ -3,43 +3,19 @@ import { useSelector } from "react-redux";
 
 import { FilterSection } from "@components/common/filter-section/FilterSection";
 import { TourCart } from "@components/common/tour-card/TourCard";
-
-import tours from "@helpers/constants/tours.jsx";
-
-import * as S from "./ToursPageContainer.styled";
 import { TopSection } from "@components/common/top-section/TopSection";
 
+import tours from "@helpers/constants/tours.jsx";
+import { filterTours } from "@helpers/utils";
+
+import * as S from "./ToursPageContainer.styled";
+
 const ToursPageContainer = () => {
-  const {
-    hotelId: city,
-    maxDistance,
-    maxPrice,
-  } = useSelector((state) => state.filter);
+  const { tourId: city, adults: groupSize } = useSelector(
+    (state) => state.filter
+  );
 
-  // Filtreleme fonksiyonu
-  const filterTours = (tours) => {
-    return tours.filter((tour) => {
-      // Şehir eşleşmesi kontrolü
-      if (city && !tour.city.toLowerCase().includes(city.toLowerCase())) {
-        return false;
-      }
-
-      // Maksimum mesafe kontrolü
-      if (maxDistance && tour.distance > maxDistance) {
-        return false;
-      }
-
-      // Maksimum fiyat kontrolü
-      if (maxPrice && tour.price > maxPrice) {
-        return false;
-      }
-
-      return true;
-    });
-  };
-
-  // Filtrelenmiş turları al
-  const filteredTours = filterTours(tours);
+  const filteredTours = filterTours(tours, city, groupSize);
 
   return (
     <S.ToursPageContainer>
