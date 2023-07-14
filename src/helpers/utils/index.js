@@ -1,7 +1,7 @@
 export const parseCities = (tours) => {
-  const cities = [];
+  const cities = [{ label: "All", value: "" }];
 
-  tours.forEach((tour) => {
+  tours.map((tour) => {
     const { city } = tour;
 
     if (!cities.some((item) => item.value === city.toLowerCase())) {
@@ -10,4 +10,18 @@ export const parseCities = (tours) => {
   });
 
   return cities;
+};
+
+export const filterTours = (tours, city, groupSize) => {
+  return tours.filter((tour) => {
+    if (city && !tour.city.toLowerCase().includes(city.toLowerCase())) {
+      return false;
+    }
+
+    if (tour.maxGroupSize <= groupSize) {
+      return false;
+    }
+
+    return true;
+  });
 };
