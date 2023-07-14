@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BsCalendar2Date, BsPerson } from "react-icons/bs";
 import Select from "react-select";
-
 import { useNavigate } from "react-router-dom";
+
+import { GoLocation } from "react-icons/go";
+import { BsCalendar2Date, BsPerson } from "react-icons/bs";
 
 import { setFieldValue } from "@stores/filterSlice.jsx";
 
@@ -129,7 +130,7 @@ const FilterSection = ({ buttonText, redirectUrl }) => {
       <S.InputContainer key={"hotelId"}>
         <S.InputHeader>
           <span>
-            <BsCalendar2Date />
+            <GoLocation />
           </span>
           {"Location"}
         </S.InputHeader>
