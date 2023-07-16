@@ -48,25 +48,30 @@ const customStyles = {
   }),
 };
 
+const getInitialSelectedOption = (location, filter) => {
+  if (location) {
+    return cities.find((option) => option.label === location);
+  }
+
+  if (filter.tourId) {
+    return cities.find((option) => option.value === filter.tourId);
+  }
+
+  return null;
+};
+
 const FilterSection = ({ buttonText, redirectUrl, location }) => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
   const navigate = useNavigate();
 
-  const [selectedOption, setSelectedOption] = useState(
-    location ? cities.find((option) => option.label == location) : null
+  const [selectedOption, setSelectedOption] = useState(() =>
+    getInitialSelectedOption(location, filter)
   );
 
-  console.log(location, selectedOption, cities);
+  console.log(location, selectedOption);
 
   useEffect(() => {
-    //Reload the deleted selected option object when the page is refreshed.
-    if (filter.tourId) {
-      setSelectedOption(
-        cities.find((option) => option.value === filter.tourId)
-      );
-    }
-
     if (location) {
       dispatch(setFieldValue({ field: "tourId", value: selectedOption.value }));
     }
