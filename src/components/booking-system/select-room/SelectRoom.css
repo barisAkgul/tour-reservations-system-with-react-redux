@@ -1,0 +1,58 @@
+.select-room-container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.room-selection {
+  text-align: center;
+}
+
+.room-selection h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.room-selection label {
+  background-color: hsl(var(--neutral1));
+  border: 2px solid hsl(229 24% 87%);
+  border-radius: 0.6rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.room-selection input[type="radio"] {
+  appearance: none;
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+.room-selection label:has([type="radio"]:checked) {
+  border-color: hsl(243 100% 62%);
+  /* background-color: hsl(var(--accent) / 0.05); */
+}
+
+.room-selection img {
+  object-fit: cover;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.room-selection span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.room-selection input[type="radio"]:checked + span {
+  color: #ff5500;
+}
+
+.room-selection input[type="radio"]:checked > label {
+  border-color: hsl(243 100% 62%);
+}
