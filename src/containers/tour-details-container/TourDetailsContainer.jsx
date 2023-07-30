@@ -8,6 +8,7 @@ import * as S from "./TourDetailsContainer.styled";
 import { FilterSection } from "@components/common/filter-section/FilterSection";
 import { DetailPageFilterContainer } from "@components/common/filter-section/FilterSection.styled";
 import { fetchTourById } from "@helpers/api/request";
+import Loader from "@components/common/loader/Loader";
 
 const features = [
   {
@@ -38,7 +39,7 @@ const TourDetailsContainer = ({ id }) => {
   }, []);
 
   if (!tour) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   console.log(id, tour);
