@@ -1,7 +1,7 @@
-import React from "react";
+import { BookingSystemContainer } from "@containers/booking-system-container/BookingSystemContainer";
 
 const BookingSystemPage = () => {
-  return <div>BookingSystemPage</div>;
+  return <BookingSystemContainer />;
 };
 
 export { BookingSystemPage };
