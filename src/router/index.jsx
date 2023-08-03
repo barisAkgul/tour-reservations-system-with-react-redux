@@ -8,12 +8,15 @@ import { TourDetailsPage } from "@pages/tour-details-page/TourDetailsPage";
 import { ToursPage } from "@pages/tours-page/ToursPage";
 import { BookingSystemPage } from "@pages/booking-system-page/BookingSystemPage";
 
+import { PageNotFound } from "@components/common/page-not-found/PageNotFound";
+import { ErrorPage } from "@components/common/error/ErrorPage";
+
 export const router = createBrowserRouter([
   {
     element: <MainLayouts />,
     children: [
       {
-        errorElement: <h1>Error Page</h1>,
+        errorElement: <ErrorPage />,
         children: [
           {
             path: "/",
@@ -33,7 +36,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "*",
-            element: <h1>Page Not Found</h1>,
+            element: <PageNotFound />,
           },
         ],
       },
