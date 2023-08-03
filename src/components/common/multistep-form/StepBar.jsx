@@ -57,7 +57,7 @@ const StepBar = ({ totalSteps, currentStep, onClick, isFormEmpty }) => {
           <Step
             isActive={index + 1 <= currentStep}
             isClickable={index + 1 !== currentStep}
-            onClick={() => onClick(index + 1)}
+            // onClick={() => onClick(index + 1)}
           >
             <StepNumber isActive={index + 1 <= currentStep}>
               {stepIcons[index]}
