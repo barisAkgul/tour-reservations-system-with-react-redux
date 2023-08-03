@@ -7,7 +7,7 @@
 - Browse and select tours with the option to filter them based on your preferences.
 - Explore detailed pages for each tour, providing comprehensive information.
 - Utilize a multi-step form booking system for a seamless tour booking experience.
-- Securely process payments for tour bookings.
+- Site is fully responsive and mobile-friendly with a dynamic mobile menu.
 - State management using Redux for seamless user experience.
 - Utilize Styled Components to style React components with ease.
 
