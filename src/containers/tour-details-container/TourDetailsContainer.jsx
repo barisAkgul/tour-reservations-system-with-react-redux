@@ -42,7 +42,7 @@ const TourDetailsContainer = ({ id }) => {
     return <Loader />;
   }
 
-  console.log(id, tour);
+
   return (
     <>
       <S.ToursDetailsContainer>

@@ -5,10 +5,14 @@ import FormButtonContainer from "@components/common/multistep-form/FormButtonCon
 import StepBar from "@components/common/multistep-form/StepBar";
 import StepContainer from "@components/common/multistep-form/StepContainer";
 import FormButton from "@components/common/multistep-form/FormButton";
-import SelectRoom from "@components/booking-system/select-room/SelectRoom";
 import StepTitle from "@components/common/multistep-form/StepTitle";
+
 import { PersonalInfo } from "@components/booking-system/personal-info/PersonalInfo";
-import CreditCardForm from "@components/booking-system/payment-section/CreditCardForm";
+import { CreditCardForm } from "@components/booking-system/payment-section/CreditCardForm";
+import { SelectRoom } from "@components/booking-system/select-room/SelectRoom";
+import { ResultSection } from "@components/booking-system/result-section/ResultSection";
+import { Summary } from "@components/booking-system/summary/Summary";
+import { useSelector } from "react-redux";
 
 const AppContainer = styled.div`
   display: flex;
@@ -24,7 +28,10 @@ const AppContainer = styled.div`
 
 const BookingSystemContainer = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({ roomType: "" });
+
+  const filterStore = useSelector((state) => state.filter);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,9 +48,8 @@ const BookingSystemContainer = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
-  const isFormEmpty = Object.values(formValues).some((value) => value === "");
 
-  console.log(formValues);
+  const isFormEmpty = currentStep == 1 && formValues.roomType == "";
   return (
     <AppContainer>
       <StepBar
@@ -55,7 +61,7 @@ const BookingSystemContainer = () => {
       <div>
         <StepContainer isActive={currentStep === 1}>
           <StepTitle title="Step 1: Select Room" />
-          <SelectRoom onChange={handleInputChange} />
+          <SelectRoom handleInputChange={handleInputChange} />
         </StepContainer>
         <StepContainer isActive={currentStep === 2}>
           <StepTitle title="Step 2: Address Information" />
@@ -66,22 +72,21 @@ const BookingSystemContainer = () => {
         </StepContainer>
         <StepContainer isActive={currentStep === 3}>
           <StepTitle title="Step 3: Payment Information" />
-
-          <CreditCardForm />
+          <Summary />
+          <CreditCardForm handleNextStep={handleNextStep} />
+        </StepContainer>
+        <StepContainer isActive={currentStep === 4}>
+          <StepTitle title="Step 4: Result Information" />
+          <ResultSection currentStep={currentStep} />
         </StepContainer>
       </div>
       <FormButtonContainer>
-        {currentStep > 1 && (
+        {currentStep > 1 && currentStep < 4 && (
           <FormButton onClick={handlePrevStep}>Previous</FormButton>
         )}
         {currentStep < 3 && (
           <FormButton disabled={isFormEmpty} onClick={handleNextStep}>
             Next
-          </FormButton>
-        )}
-        {currentStep === 3 && (
-          <FormButton disabled={isFormEmpty} onClick={handleNextStep}>
-            Submit
           </FormButton>
         )}
       </FormButtonContainer>
