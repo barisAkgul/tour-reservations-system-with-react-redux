@@ -19,9 +19,12 @@ const filterSlice = createSlice({
       const { field, value } = action.payload;
       state[field] = value;
     },
+    resetFilter: (state) => {
+      return initialState;
+    },
   },
 });
 
-export const { setFieldValue } = filterSlice.actions;
+export const { setFieldValue, resetFilter } = filterSlice.actions;
 
 export default filterSlice.reducer;
