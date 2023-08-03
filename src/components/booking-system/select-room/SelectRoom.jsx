@@ -1,67 +1,46 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import "./SelectRoom.css";
+import * as S from "./SelectRoom.styed";
+import { roomOptions } from "./constant";
+import { useDispatch } from "react-redux";
 
-const SelectRoom = ({ onChange }) => {
-  const [selectedRoom, setSelectedRoom] = useState("");
+import { setFieldValue } from "@stores/filterSlice";
+
+const SelectRoom = ({ handleInputChange }) => {
+  const [selectedRoom, setSelectedRoom] = useState();
+  const dispatch = useDispatch();
 
   const handleRoomSelection = (event) => {
     setSelectedRoom(event.target.value);
-    onChange(event);
+    handleInputChange(event);
+    dispatch(setFieldValue({ field: "roomType", value: event.target.value }));
   };
 
   return (
-    <div className="select-room-container">
-      <div className="room-selection">
-        <label>
-          <input
-            name="roomType"
-            type="radio"
-            value="luxury"
-            checked={selectedRoom === "luxury"}
-            onChange={handleRoomSelection}
-          />
-          <span>Luxury Room</span>
-          <img
-            src="https://storage.googleapis.com/theme-vessel-items/checking-sites/hotel-alpha-html/HTML/main/img/room/img-3.jpg"
-            alt="Luxury Room"
-          />
-        </label>
-      </div>
-      <div className="room-selection">
-        <label>
-          <input
-            name="roomType"
-            type="radio"
-            value="single"
-            checked={selectedRoom === "single"}
-            onChange={handleRoomSelection}
-          />
-          <span>Single Room</span>
-          <img
-            src="https://storage.googleapis.com/theme-vessel-items/checking-sites/hotel-alpha-html/HTML/main/img/room/img-2.jpg"
-            alt="Single Room"
-          />
-        </label>
-      </div>
-      <div className="room-selection">
-        <label>
-          <input
-            name="roomType"
-            type="radio"
-            value="double"
-            checked={selectedRoom === "double"}
-            onChange={handleRoomSelection}
-          />
-          <span>Double Room</span>
-          <img
-            src="https://storage.googleapis.com/theme-vessel-items/checking-sites/hotel-alpha-html/HTML/main/img/room/img-1.jpg"
-            alt="Double Room"
-          />
-        </label>
-      </div>
-    </div>
+    <S.SelectRoomContainer>
+      {roomOptions.map((roomOption) => (
+        <S.RoomSelectionWrapper key={roomOption.value}>
+          <S.RoomSelectionLabel>
+            <S.RoomSelectionInput
+              name="roomType"
+              type="radio"
+              value={roomOption.value}
+              checked={selectedRoom === roomOption.value}
+              onChange={handleRoomSelection}
+            />
+            <S.RoomSelectionText>
+              {roomOption.label}{" "}
+              {roomOption.roomExtra > 0 && `(+${roomOption.roomExtra}%)`}
+            </S.RoomSelectionText>
+            <S.RoomSelectionImage
+              src={roomOption.imageUrl}
+              alt={roomOption.label}
+            />
+          </S.RoomSelectionLabel>
+        </S.RoomSelectionWrapper>
+      ))}
+    </S.SelectRoomContainer>
   );
 };
 
-export default SelectRoom;
+export { SelectRoom };
