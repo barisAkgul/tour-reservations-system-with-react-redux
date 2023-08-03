@@ -28,6 +28,13 @@
 - Proceed to the payment step, where you can securely complete the booking.
 - Enjoy your booked tour!
 
+##  Screenshots 📷
+
+![tour-home](https://github.com/barisAkgul/tour-reservations-system-with-react-redux/assets/73407115/6f4bdf89-1d5b-4a43-a2e5-9df9d8bca2eb)
+
+
+
+
 
 ##  Installation and Setup 🏁
 To run the project locally, follow these steps:
