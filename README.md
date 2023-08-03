@@ -28,7 +28,7 @@
 
 ## Screenshots 📷
 
-![tour-home](https://github.com/barisAkgul/tour-reservations-system-with-react-redux/assets/tour-home.png)
+![tour-home](src/assets/tour-home.png)
 
 ## Installation and Setup 🏁
 
