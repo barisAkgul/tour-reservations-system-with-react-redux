@@ -1,8 +1,11 @@
 import React, { useState, useRef } from "react";
 import "./styles.css";
 
+import visa from "@assets/images/visa.png";
+import chip from "@assets/images/chip.png";
+
 const months = [
-  { value: "mm", label: "MM" },
+  { value: "mm", label: "mm" },
   { value: "1", label: "1" },
   { value: "2", label: "2" },
   { value: "3", label: "3" },
@@ -18,7 +21,7 @@ const months = [
 ];
 
 const years = [
-  { value: "yy", label: "YY" },
+  { value: "yy", label: "yy" },
   { value: "2021", label: "2021" },
   { value: "2022", label: "2022" },
   { value: "2023", label: "2023" },
@@ -31,7 +34,7 @@ const years = [
   { value: "2030", label: "2030" },
 ];
 
-const CreditCardForm = () => {
+const CreditCardForm = ({ handleNextStep }) => {
   const [formData, setFormData] = useState({
     cardNumber: "",
     cardHolder: "",
@@ -41,6 +44,10 @@ const CreditCardForm = () => {
     isFlipped: false,
   });
 
+  // Reference to the card number input element
+  const cardNumberRef = useRef(null);
+
+  // Handler for input change events
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -49,6 +56,19 @@ const CreditCardForm = () => {
     }));
   };
 
+  // Handler for card number change event
+  const handleCardNumberChange = (event) => {
+    const inputNumber = event.target.value;
+    // Validate input as only numbers and up to 16 characters
+    if (/^\d{0,16}$/.test(inputNumber)) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        cardNumber: inputNumber,
+      }));
+    }
+  };
+
+  // Handler for CVV input focus event
   const handleCVVFocus = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -56,6 +76,7 @@ const CreditCardForm = () => {
     }));
   };
 
+  // Handler for CVV input blur event
   const handleCVVBlur = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -63,19 +84,55 @@ const CreditCardForm = () => {
     }));
   };
 
+  // Handler for form submit event
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Form validation checks
+    if (!formData.cardNumber.match(/^\d{16}$/)) {
+      alert("Invalid credit card number!");
+      cardNumberRef.current.focus();
+      return;
+    }
+
+    if (!formData.cardHolder.trim()) {
+      alert("Cardholder name cannot be empty!");
+      return;
+    }
+
+    const today = new Date();
+    const selectedDate = new Date(
+      `20${formData.expirationYear}`,
+      formData.expirationMonth - 1,
+      1
+    );
+
+    if (selectedDate <= today) {
+      alert("Invalid expiration date!");
+      return;
+    }
+
+    if (
+      formData.cvv.length !== 3 && // 3-digit CVV (VISA, Mastercard, Discover)
+      formData.cvv.length !== 4 // 4-digit CVV (American Express)
+    ) {
+      alert("Invalid CVV!");
+      return;
+    }
+
+    // Form submission logic could be done here.
+    // alert("Form submitted successfully!");
+
+    handleNextStep();
+  };
+
   return (
     <div className="container">
       <div className={`card-container`}>
         <div className={`front ${formData.isFlipped ? "flipped-front" : ""}`}>
           <div className="image">
-            <img
-              src="https://raw.githubusercontent.com/ch-hassansaeed/Credit-Card-Payment-System/master/public/card-asserts/chip.png"
-              alt=""
-            />
-            <img
-              src="https://raw.githubusercontent.com/ch-hassansaeed/Credit-Card-Payment-System/master/public/card-type/visa.png"
-              alt=""
-            />
+            <img src={chip} alt="" />
+            <img src={visa} alt="" />
           </div>
           <div className="card-number-box">
             {formData.cardNumber.padEnd(16, "#")}
@@ -102,21 +159,21 @@ const CreditCardForm = () => {
           <div className="box">
             <span>cvv</span>
             <div className="cvv-box">{formData.cvv}</div>
-            <img src="image/visa.png" alt="" />
+            <img src={visa} alt="" />
           </div>
         </div>
       </div>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="inputBox">
           <span>card number</span>
           <input
-            type="text"
-            maxLength="16"
+            type="text" // "number" yerine "text" olarak kullanıyoruz
             className="card-number-input"
             name="cardNumber"
             value={formData.cardNumber}
-            onChange={handleInputChange}
+            onChange={handleCardNumberChange} // Özel değiştirilmiş fonksiyonu kullan
+            required
           />
         </div>
         <div className="inputBox">
@@ -127,6 +184,7 @@ const CreditCardForm = () => {
             name="cardHolder"
             value={formData.cardHolder}
             onChange={handleInputChange}
+            required
           />
         </div>
         <div className="flexbox">
@@ -138,6 +196,7 @@ const CreditCardForm = () => {
               className="month-input"
               value={formData.expirationMonth}
               onChange={handleInputChange}
+              required
             >
               {months.map((month) => (
                 <option key={month.value} value={month.value}>
@@ -154,11 +213,10 @@ const CreditCardForm = () => {
               className="year-input"
               value={formData.expirationYear}
               onChange={handleInputChange}
+              required
             >
               {years.map((year) => (
-                <option key={year.value} value={year.value}>
-                  {year.value}
-                </option>
+                <option key={year.value}>{year.value}</option>
               ))}
             </select>
           </div>
@@ -173,13 +231,14 @@ const CreditCardForm = () => {
               onFocus={handleCVVFocus}
               onBlur={handleCVVBlur}
               onChange={handleInputChange}
+              required
             />
           </div>
         </div>
-        <input type="submit" value="submit" className="submit-btn" />
+        <input type="submit" value="Submit" className="submit-btn" />
       </form>
     </div>
   );
 };
 
-export default CreditCardForm;
+export { CreditCardForm };
