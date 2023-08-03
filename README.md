@@ -1,5 +1,6 @@
 ## Tour Booking App 🚀
 
+"Tour Booking App is an interactive travel reservation application built with React, Redux, and Styled Components, allowing users to explore various tours, customize their booking experience through a multi-step form for a seamless travel booking process."
 
 ## Features 🚦
 
