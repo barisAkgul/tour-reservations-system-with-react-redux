@@ -20,7 +20,7 @@ export const FilterContainer = styled.div`
     width: 250px;
   }
 
-  & > div:nth-child(4) {
+  & > div:nth-child(2) {
     width: 90px;
 
     input {

@@ -1,76 +1,68 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 
 import { GoLocation } from "react-icons/go";
 import { BsCalendar2Date, BsPerson } from "react-icons/bs";
 
 import { setFieldValue } from "@stores/filterSlice.jsx";
-
 import tours from "@helpers/constants/tours.jsx";
 import { parseCities } from "@helpers/utils/index.js";
 
 import * as S from "./FilterSection.styled.jsx";
+import "react-datepicker/dist/react-datepicker.css";
+import "./styles.css";
+
+import {
+  customStyles,
+  getInitialSelectedOption,
+  formatDate,
+} from "./FilterSection.helpers.jsx";
 
 const cities = parseCities(tours);
-
-const customStyles = {
-  container: (provided) => ({
-    ...provided,
-    outline: "none",
-  }),
-  control: (provided) => ({
-    ...provided,
-    border: "none",
-    boxShadow: "none",
-    padding: 0,
-    "&:hover": {
-      border: "none",
-    },
-    "&:focus": {
-      border: "none",
-    },
-  }),
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor: state.isSelected ? "#DEEBFF" : "white",
-    color: state.isSelected ? "white" : "grey",
-  }),
-  singleValue: (provided) => ({
-    ...provided,
-    color: "rgb(153, 153, 153)",
-    padding: "0",
-  }),
-  valueContainer: (provided) => ({
-    ...provided,
-    padding: 0,
-  }),
-};
-
-const getInitialSelectedOption = (location, filter) => {
-  if (location) {
-    return cities.find((option) => option.label === location);
-  }
-
-  if (filter.tourId) {
-    return cities.find((option) => option.value === filter.tourId);
-  }
-
-  return null;
-};
 
 const FilterSection = ({ buttonText, redirectUrl, location }) => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
   const navigate = useNavigate();
 
+  const handleChange = (field, value) => {
+    dispatch(setFieldValue({ field, value }));
+  };
+
+  /* About Date */
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+    if (endDate && date > endDate) {
+      setEndDate(null);
+      handleChange("checkout", null);
+    }
+
+    handleChange("checkin", formatDate(date));
+  };
+
+  const handleEndDateChange = (date) => {
+    if (startDate && date < startDate) {
+      return;
+    }
+    setEndDate(date);
+    handleChange("checkout", formatDate(date));
+  };
+
+  /**********/
+
   const [selectedOption, setSelectedOption] = useState(() =>
-    getInitialSelectedOption(location, filter)
+    getInitialSelectedOption(location, filter, cities)
   );
 
-  console.log(location, selectedOption);
-
+  /*
+   * On the detail page, to assign the location from the page
+   */
   useEffect(() => {
     if (location) {
       dispatch(setFieldValue({ field: "tourId", value: selectedOption.value }));
@@ -82,59 +74,14 @@ const FilterSection = ({ buttonText, redirectUrl, location }) => {
     dispatch(setFieldValue({ field: "tourId", value: selectedOption.value }));
   };
 
+  /*
+   * To redirect to the tour page or payment page, as the case may be.
+   */
   const handleSearch = () => {
     if (redirectUrl) {
       navigate(redirectUrl);
     }
-
-    console.log(
-      filter.tourId,
-      filter.checkin,
-      filter.checkout,
-      filter.adults,
-      filter.children
-    );
   };
-
-  const handleChange = (field, value) => {
-    dispatch(setFieldValue({ field, value }));
-  };
-
-  const inputs = [
-    // {
-    //   field: "hotelId",
-    //   label: "Location",
-    //   icon: <GoLocation />,
-    //   type: "text",
-    //   placeholder: "Where are you going?",
-    //   value: filter.hotelId,
-    // },
-    {
-      field: "checkin",
-      label: "Check-in",
-      icon: <BsCalendar2Date />,
-      type: "date",
-      placeholder: "MM/DD/YYYY",
-      value: filter.checkin,
-    },
-    {
-      field: "checkout",
-      label: "Check-out",
-      icon: <BsCalendar2Date />,
-      type: "date",
-      placeholder: "DD-MM-YYYY",
-      value: filter.checkout,
-    },
-    {
-      field: "adults",
-      label: "Adults",
-      icon: <BsPerson />,
-      type: "number",
-      min: "1",
-      placeholder: "0",
-      value: filter.adults,
-    },
-  ];
 
   const isButtonDisabled =
     !filter.tourId || !filter.checkin || !filter.checkout || !filter.adults;
@@ -157,21 +104,62 @@ const FilterSection = ({ buttonText, redirectUrl, location }) => {
           isDisabled={location ? true : false}
         />
       </S.InputContainer>
-      {inputs.map((input) => (
-        <S.InputContainer key={input.field}>
-          <S.InputHeader>
-            <span>{input.icon}</span>
-            {input.label}
-          </S.InputHeader>
-          <S.Input
-            type={input.type}
-            placeholder={input.placeholder}
-            value={input.value}
-            onChange={(e) => handleChange(input.field, e.target.value)}
-            min={input.min}
-          />
-        </S.InputContainer>
-      ))}
+
+      <S.InputContainer>
+        <S.InputHeader>
+          <span>
+            <BsPerson />
+          </span>
+          Adults
+        </S.InputHeader>
+        <S.Input
+          type="number"
+          placeholder="Person"
+          value={filter.adults}
+          onChange={(e) => handleChange("adults", e.target.value)}
+          min="1"
+        />
+      </S.InputContainer>
+
+      <S.InputContainer>
+        <S.InputHeader>
+          <span>
+            <BsCalendar2Date />
+          </span>
+          Check-in
+        </S.InputHeader>
+
+        <DatePicker
+          selected={startDate}
+          onChange={handleStartDateChange}
+          selectsStart
+          dateFormat="MM/dd/yyyy"
+          dateFormatCalendar="yyyy-MM-dd"
+          startDate={startDate}
+          endDate={endDate}
+          minDate={new Date()}
+          placeholderText={filter.checkin ? filter.checkin : "Check-in Date"}
+        />
+      </S.InputContainer>
+
+      <S.InputContainer>
+        <S.InputHeader>
+          <span>
+            <BsCalendar2Date />
+          </span>
+          Check-out
+        </S.InputHeader>
+
+        <DatePicker
+          selected={endDate}
+          onChange={handleEndDateChange}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={startDate}
+          placeholderText={filter.checkout ? filter.checkout : "Check-out Date"}
+        />
+      </S.InputContainer>
       <S.SearchButton onClick={handleSearch} disabled={isButtonDisabled}>
         {buttonText}
       </S.SearchButton>

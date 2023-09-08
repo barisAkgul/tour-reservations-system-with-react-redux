@@ -2,7 +2,6 @@ import React from "react";
 
 import * as S from "./PersonalInfo.styled";
 
-
 const PersonalInfo = ({ handleInputChange, formValues }) => {
   return (
     <S.PersonalInfoContainer>
