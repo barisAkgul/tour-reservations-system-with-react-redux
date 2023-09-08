@@ -32,7 +32,6 @@ const BookingSystemContainer = () => {
 
   const filterStore = useSelector((state) => state.filter);
 
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -47,7 +46,6 @@ const BookingSystemContainer = () => {
   const handlePrevStep = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
-
 
   const isFormEmpty = currentStep == 1 && formValues.roomType == "";
   return (
@@ -85,9 +83,11 @@ const BookingSystemContainer = () => {
           <FormButton onClick={handlePrevStep}>Previous</FormButton>
         )}
         {currentStep < 3 && (
-          <FormButton disabled={isFormEmpty} onClick={handleNextStep}>
-            Next
-          </FormButton>
+          <span style={{ marginLeft: "auto" }}>
+            <FormButton disabled={isFormEmpty} onClick={handleNextStep}>
+              Next
+            </FormButton>
+          </span>
         )}
       </FormButtonContainer>
     </AppContainer>
