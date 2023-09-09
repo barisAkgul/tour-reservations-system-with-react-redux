@@ -11,9 +11,9 @@ import { setFieldValue } from "@stores/filterSlice.jsx";
 import tours from "@helpers/constants/tours.jsx";
 import { parseCities } from "@helpers/utils/index.js";
 
-import * as S from "./FilterSection.styled.jsx";
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles.css";
+import * as S from "./FilterSection.styled.jsx";
 
 import {
   customStyles,
@@ -35,6 +35,8 @@ const FilterSection = ({ buttonText, redirectUrl, location }) => {
   /* About Date */
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  const tomorrow = new Date(startDate);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -112,7 +114,7 @@ const FilterSection = ({ buttonText, redirectUrl, location }) => {
           </span>
           Adults
         </S.InputHeader>
-        <S.Input
+        <input
           type="number"
           placeholder="Person"
           value={filter.adults}
@@ -156,7 +158,9 @@ const FilterSection = ({ buttonText, redirectUrl, location }) => {
           selectsEnd
           startDate={startDate}
           endDate={endDate}
-          minDate={startDate}
+          minDate={
+            startDate ? tomorrow.setDate(startDate.getDate() + 1) : new Date()
+          }
           placeholderText={filter.checkout ? filter.checkout : "Check-out Date"}
         />
       </S.InputContainer>

@@ -43,6 +43,12 @@ export const FilterContainer = styled.div`
   input {
     background-color: #fff;
 
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      opacity: 1 !important;
+      margin: 0 !important;
+    }
+
     border-radius: 8px;
     font-size: 14px;
     color: #484848;
@@ -77,7 +83,7 @@ export const DateInput = styled.input`
   // &::-webkit-calendar-picker-indicator,
   // &::-webkit-inner-spin-button,
   // &::-webkit-clear-button {
-  //   opacity: 0;
+  //   opacity: 1;
   // }
 `;
 
