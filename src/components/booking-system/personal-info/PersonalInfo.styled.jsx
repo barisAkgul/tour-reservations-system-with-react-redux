@@ -81,21 +81,26 @@ export const PersonalInfoContainer = styled.section`
     color: #707070;
     font-size: 1rem;
   }
-  .form button {
-    height: 55px;
-    width: 100%;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 400;
-    margin-top: 30px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background: rgb(130, 106, 251);
+
+  .date-container {
+    display: flex;
+    flex-direction: column;
   }
-  .form button:hover {
-    background: rgb(88, 56, 250);
-  }
+  // .form button {
+  //   height: 55px;
+  //   width: 100%;
+  //   color: #fff;
+  //   font-size: 1rem;
+  //   font-weight: 400;
+  //   margin-top: 30px;
+  //   border: none;
+  //   cursor: pointer;
+  //   transition: all 0.2s ease;
+  //   background: rgb(130, 106, 251);
+  // }
+  // .form button:hover {
+  //   background: rgb(88, 56, 250);
+  // }
   /*Responsive*/
   @media screen and (max-width: 578px) {
     .form .column {
