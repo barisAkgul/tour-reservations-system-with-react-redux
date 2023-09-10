@@ -26,6 +26,12 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 80px;
+  padding-right: 80px;
+
   @media (max-width: ${Breakpoints.TABLET}px) {
     padding: 20px 20px;
   }
