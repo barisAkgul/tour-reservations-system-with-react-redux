@@ -114,7 +114,7 @@ const FilterSection = ({ buttonText, redirectUrl, location }) => {
           </span>
           Adults
         </S.InputHeader>
-        <input
+        <S.GuestsInput
           type="number"
           placeholder="Person"
           value={filter.adults}

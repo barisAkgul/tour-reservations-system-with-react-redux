@@ -20,14 +20,6 @@ export const FilterContainer = styled.div`
     width: 250px;
   }
 
-  & > div:nth-child(2) {
-    width: 90px;
-
-    input {
-      width: 90px;
-    }
-  }
-
   &::before {
     background-color: hsla(0, 0%, 100%, 0.15);
     border-radius: 8px;
@@ -79,23 +71,20 @@ export const LocationInput = styled.input`
 
 export const DateInput = styled.input`
   // width: 150px;
-
-  // &::-webkit-calendar-picker-indicator,
-  // &::-webkit-inner-spin-button,
-  // &::-webkit-clear-button {
-  //   opacity: 1;
-  // }
 `;
 
 export const Input = styled.input``;
 
 export const GuestsInput = styled.input`
-  width: 30px;
+  width: 90%;
+  input {
+    width: 90px;
+  }
 `;
 
 export const InputContainer = styled.div`
   @media (max-width: 968px) {
-    flex: 0 0 50%;
+    flex: 0 0 46%;
   }
 
   @media (max-width: 576px) {
@@ -157,6 +146,14 @@ export const DetailPageFilterContainer = styled(FilterContainer)`
     width: 100%;
   }
 
+  & > div:nth-child(2) {
+    width: 100%;
+
+    input {
+      width: 90px;
+    }
+  }
+
   &:nth-child(1) {
     flex: 0 0 20%;
   }
@@ -208,7 +205,11 @@ export const DetailPageFilterContainer = styled(FilterContainer)`
   }
 
   ${GuestsInput} {
-    width: 30px;
+    width: 90px;
+
+    @media (min-width: 768px) {
+      width: 100%;
+    }
   }
 
   ${InputContainer} {
@@ -216,6 +217,7 @@ export const DetailPageFilterContainer = styled(FilterContainer)`
 
     @media (max-width: 768px) {
       flex: 0 0 50%;
+      padding-right: 16px;
     }
 
     @media (max-width: 576px) {
