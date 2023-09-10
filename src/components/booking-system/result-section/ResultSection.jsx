@@ -9,7 +9,6 @@ import * as S from "./ResultSection.styled";
 const ResultSection = ({ currentStep }) => {
   const dispatch = useDispatch();
 
-  console.log("currentStep ", currentStep);
   useEffect(() => {
     if (currentStep === 4) {
       dispatch(resetFilter());
