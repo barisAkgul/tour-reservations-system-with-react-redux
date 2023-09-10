@@ -60,11 +60,11 @@
   color: #444;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
+/* input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
+} */
 
 .container form .flexbox {
   display: flex;
@@ -106,7 +106,7 @@ input[type="number"]::-webkit-outer-spin-button {
   top: 0;
   left: 0;
   background: linear-gradient(45deg, blueviolet, deeppink);
-  background-image: url("https://raw.githubusercontent.com/ch-hassansaeed/Credit-Card-Payment-System/master/public/card-background/credit_card_bg.jpeg");
+  background-image: url("src\assets\images\credit_card_bg.jpeg");
   border-radius: 5px;
   backface-visibility: hidden;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
