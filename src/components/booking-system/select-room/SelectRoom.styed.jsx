@@ -20,6 +20,7 @@ export const RoomSelectionLabel = styled.label`
   margin-bottom: 20px;
   cursor: pointer;
   padding: 1rem;
+  min-height: 245px;
 
   &:has([type="radio"]:checked) {
     border-color: hsl(243 100% 62%);
