@@ -34,7 +34,7 @@
 
 To run the project locally, follow these steps:
 
-- Clone the repository: git clone https://github.com/your-username/your-repo.git
+- Clone the repository
 - Install dependencies: npm install
 - Start the development server: npm start
 - Open the app in your browser at http://localhost:3000
